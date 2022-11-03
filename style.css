@@ -10,7 +10,7 @@
     border: 1px solid black;
 }
 
-.spacebetween{
+.justify{
     justify-content: space-around;
 }
 
@@ -81,7 +81,7 @@ h2 {
     padding-left: .5rem;
 }
 
-#search-btn {
+#search-button {
     margin-bottom: 2rem;
     background-color: #6699ff;
     color: white;
