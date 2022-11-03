@@ -15,18 +15,33 @@
     />
     <link rel="stylesheet" href='./style.css'>
 </head>
-<body>
-    <header class="justify-content-center bg-primary text-white mx-0 px-1">
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12">
-                <h1 class="display-4 text-center w-100">Weather Dashboard</h1>
-            </div>
-        </div>  
-    </header>
 
+<body>
+
+    <header class="heading">Weather Dashboard</header>
+
+    <main id='container' class="container">
+        <div class="row">
+            <div class="col1">
+                <div id='search-area'>
+                    <h1 class='h1'>Search for a City:</h1>
+                    <form id='city-search'>
+                        <input name='city' type="text" placeholder="Birmingham" id='city' autofocus='true'
+                            class='city-input' />
+                        <button type="submit" id='search-btn' class='btn'>Search</button>
+                    </form>
+                    <hr>
+                    </hr>
+                    <div id="search-history"></div>
+                </div>
+            </div>
+            <div class="col2">
+                <div id='five-day' class='row spacebetween'></div>
+            </div>
+        </div>
+    </main>
     
 
-    </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
