@@ -24,7 +24,7 @@
     flex-wrap: wrap;
 }
 
-.col1 {
+.column1 {
     width: 20%;
     margin: 0 auto;
 }
@@ -39,7 +39,6 @@
     width: 18%;
     
 }
-
 
 body { min-height: 100vh; }
 
@@ -121,24 +120,6 @@ ul {
 
 #current-weather-icon {
     filter: drop-shadow(0 0 0.75rem grey);
-}
-
-.favorable {
-    background-color: green;
-    font-size: 2rem;
-    border-radius: .5rem;
-}
-
-.moderate {
-    background-color: yellow;
-    font-size: 2rem;
-    border-radius: .5rem;
-}
-
-.severe {
-    background-color: red;
-    font-size: 2rem;
-    border-radius: .5rem;
 }
 
 span {
