@@ -3,13 +3,14 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 62.5%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
 
 .border {
     border: 1px solid black;
 }
 
-.space{
+.spacebetween{
     justify-content: space-around;
 }
 
@@ -23,47 +24,45 @@
     flex-wrap: wrap;
 }
 
-.column {
+.col1 {
     width: 20%;
     margin: 0 auto;
 }
 
-.column2 {
+.forecast {
     width: 65%;
     margin-right: auto;
     margin-top: 1%;
 }
 
-.column3 {
+.col3 {
     width: 18%;
     
 }
 
+
+body { min-height: 100vh; }
+
 header {
     text-align: center;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-bottom: 10px;
     background-color: rgb(75,105,177);
     background-image: linear-gradient(90deg, rgba(75,105,177,1) 13%, rgba(35,77,167,1) 42%, rgba(1,1,105,1) 80%);
 }
 
-
-/* style the heading */
-header h1 {
+.heading {
     color:white;
     font-size: 4rem;
     font-weight: bold;
 }
 
-/* style the h1 */
-h1 {
+.h1 {
     font-weight: bold;
     font-size: 3.25rem;
     margin: 2rem auto;
 }
 
-
-/* style the h2 */
 h2 {
     font-size: 3rem;
     font-weight: bold;
@@ -72,7 +71,6 @@ h2 {
     margin-left: 1%;
 }
 
-/* style the text area where user inputs city name */
 #city {
     font-size: 2rem;
     width: 100%;
@@ -84,15 +82,13 @@ h2 {
     padding-left: .5rem;
 }
 
-/* style the search button */
 #search-btn {
     margin-bottom: 2rem;
     background-color: #6699ff;
     color: white;
 }
 
-/* style the history buttons */
-.button {
+.btn {
     font-size: 2rem;
     width: 100%;
     background-color: lightgrey;
@@ -103,18 +99,15 @@ h2 {
     padding: .7rem 0;
 }
 
-/* create the line break in search area */
 hr {
     border-top: .2rem solid rgba(0,0,0, 1);
 }
 
-/* style current weather container */
 #current-weather {
     height: 50%;
     border: .1rem solid black;
 }
 
-/* style the list in weather container */
 ul {
     list-style-type: none;
     font-size: 3rem;
@@ -126,19 +119,39 @@ ul {
     margin-left: 1%;
 }
 
-/* style the icon */
 #current-weather-icon {
     filter: drop-shadow(0 0 0.75rem grey);
 }
 
-/* style the h3 header */
+.favorable {
+    background-color: green;
+    font-size: 2rem;
+    border-radius: .5rem;
+}
+
+.moderate {
+    background-color: yellow;
+    font-size: 2rem;
+    border-radius: .5rem;
+}
+
+.severe {
+    background-color: red;
+    font-size: 2rem;
+    border-radius: .5rem;
+}
+
+span {
+    padding: 0 1.5rem;
+    color: white;
+}
+
 h3 {
     font-weight: bold;
     font-size: 2rem;
     color: white;
 }
 
-/* style the .card-body */
 .card-body {
     background-color:#00334d;
     height: 20rem;
@@ -150,14 +163,12 @@ h3 {
     justify-content: space-around;
 }
 
-/* style the weather details in the .card-body */
 p {
     font-size: 2rem;
     color: white;
 }
 
-/* style the five-day-header */
-#five-day-header {
+#five-forecast-header {
     margin-top: 1%;
     margin-bottom: 1%;
 }
