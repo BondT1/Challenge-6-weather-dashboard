@@ -18,25 +18,27 @@
 
 <body>
 
-    <header class="heading">Weather Dashboard</header>
+    <header class="Title">
+       <h1>Weather Dashboard</h1>
+    </header>
 
-    <main id='container' class="container">
+    <main id='container' class="container-class">
         <div class="row">
-            <div class="col1">
-                <div id='search-area'>
-                    <h1 class='h1'>Search for a City:</h1>
+            <div class="column">
+                <div id='search-box'>
+                    <h1 class='Search'>Search for a City:</h1>
                     <form id='city-search'>
                         <input name='city' type="text" placeholder="Birmingham" id='city' autofocus='true'
-                            class='city-input' />
-                        <button type="submit" id='search-btn' class='btn'>Search</button>
+                            class='city-inp' />
+                        <button type="submit" id='search-btn' class='button'>Search</button>
                     </form>
                     <hr>
                     </hr>
-                    <div id="search-history"></div>
+                    <div id="history"></div>
                 </div>
             </div>
-            <div class="col2">
-                <div id='five-day' class='row spacebetween'></div>
+            <div class="column-2">
+                <div id='five-forecast' class='row space'></div>
             </div>
         </div>
     </main>
