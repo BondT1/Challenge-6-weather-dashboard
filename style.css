@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+.border {
+    border: 1px solid black;
+}
+
+.space{
+    justify-content: space-around;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    width: 20%;
+    margin: 0 auto;
+}
+
+.column2 {
+    width: 65%;
+    margin-right: auto;
+    margin-top: 1%;
+}
+
+.column3 {
+    width: 18%;
+    
+}
