@@ -102,7 +102,7 @@ hr {
     border-top: .2rem solid rgba(0,0,0, 1);
 }
 
-#current-weather {
+#weather-now {
     height: 50%;
     border: .1rem solid black;
 }
@@ -118,7 +118,7 @@ ul {
     margin-left: 1%;
 }
 
-#current-weather-icon {
+#weather-current-icon {
     filter: drop-shadow(0 0 0.75rem grey);
 }
 
