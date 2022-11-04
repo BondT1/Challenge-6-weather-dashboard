@@ -91,8 +91,9 @@ function insertLocalStorage() {
     return historyArray;
 }
 
+// history buttons
 function history(city) {
-    
+
 }
 
 
