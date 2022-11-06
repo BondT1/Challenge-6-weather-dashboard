@@ -35,7 +35,7 @@
     margin-top: 1%;
 }
 
-.col3 {
+.card {
     width: 18%;
     
 }
@@ -133,7 +133,7 @@ h3 {
     color: white;
 }
 
-.card-body {
+.card-main {
     background-color:#00334d;
     height: 20rem;
     padding-left: 4%;

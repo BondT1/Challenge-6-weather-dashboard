@@ -13,7 +13,7 @@ var openWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
 var oneCallUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat='
 var coordinates = openWeatherUrl + city + '$appid' + ApiKey
 var formEL = $('#search-city');
-var currentDate = moment().format('M/DD/YYYY');
+var currentDate = moment().format('DD/M/YYYY');
 var forecastEl = $('.forecast');
 var historyArray = loadSearchHistory();
 var historyEl = $('#history');
@@ -54,20 +54,77 @@ function fetchWeather() {
 
                                     var weatherListCurrent = $('<ul></ul>');
 
-                                    var weatherDetailsCurrent = ['Temp: ' + weatherData.current.temp + ' °F', 'Wind: ' + weatherData.current.wind_speed + ' MPH', 'Humidity: ' + weatherData.current.humidity + '%']
+                                    var weatherDetailsCurrent = ['Temp: ' + weatherInfo.current.temp + ' °F', 'Wind: ' + weatherInfo.current.wind_speed + ' MPH', 'Humidity: ' + weatherInfo.current.humidity + '%']
                                     
                                     for (var i = 0; i < weatherDetailsCurrent.length; i++) {
-                                        var currentWeatherList = $('<li></li>')
+                                        var currentWeatherItem = $('<li></li>')
                                             .text(weatherDetailsCurrent[i])
-                                        weatherNow.append(currentWeatherList);    
+                                        weatherNow.append(currentWeatherItem);    
                                     }
 
                                     weatherNow.append(currentHeading);
                                     currentHeading.append(iconEL);
-                                    weatherNow.append(currentWeatherList);
+                                    weatherNow.append(weatherListCurrent);
                                     $('five-forecast').before(weatherNow);
 
                                     
+
+                                    // Five day forecast
+                                    // Jquery for this container
+
+                                    var fiveForecastHeader = $('<h2></h2>')
+                                        .text("5-Day-Forecast:")
+                                        .attr({id = 'five-forecast-header'})
+
+                                    $('#weather-now').after(fiveForecastHeader)
+
+                                    var fiveForecastArray = [];
+
+                                    for (var i = 0; i < 5; i++) {
+                                        let date = moment().add(i + 1, 'days').format('DD,M,YYYY');
+
+                                        fiveForecastArray.push(date);
+                                    }
+
+                                    // weather cards
+
+                                    for (var i = 0; i < fiveForecastArray.length; i++) {
+                                        var weatherCard = $('<div></div>')
+                                            addClass('card');
+
+                                        var weatherCardMain = $('<div></div>')
+                                            addClass('card-main');
+
+                                        var cardH3 = $('<h3></h3>')
+                                            addClass('card-h3')
+                                            .text(fiveForecastArray[i]);
+
+                                        var fiveIcon = weatherInfo.daily[i].weather[0].icon;
+
+                                        var fiveIconEl = $('<img></img>')
+                                            .attr({
+                                                src: weatherIcon + fiveIcon + '.png',
+                                                alt: 'Forecast Icon'
+                                            });
+                                        
+                                        var weatherDetailsCurrent = ['Temp: ' + weatherInfo.current.temp + ' °F', 'Wind: ' + weatherInfo.current.wind_speed + ' MPH', 'Humidity: ' + weatherInfo.current.humidity + '%']
+                                        var tempInfo = $('<p></p>')
+                                            .text('Temp: ' + weatherInfo.daily[i].temp.max);
+                                        
+                                        var windInfo = $('<p></p>')
+                                            .text('Wind: ' + weatherInfo.daily[i].wind_speed + 'MPH');
+                                        
+                                        var humidityInfo = $('<p></p>')
+                                            .text('Humidity: ' + weatherInfo.daily[i].humidity + '%');
+
+                                        fiveForecastEl.append(weatherCard);
+                                        weatherCard.append(weatherCardMain);
+                                        weatherCardMain.append(cardH3);
+                                        weatherCardMain.append(fiveIconEl);
+                                        weatherCardMain.append(tempInfo);
+                                        weatherCardMain.append(windInfo);
+                                        weatherCardMain.append(humidityInfo);
+                                    }
                                     // need to continue with this 
 
                                     
