@@ -55,7 +55,19 @@ function fetchWeather() {
                                     var weatherListCurrent = $('<ul></ul>');
 
                                     var weatherDetailsCurrent = ['Temp: ' + weatherData.current.temp + ' °F', 'Wind: ' + weatherData.current.wind_speed + ' MPH', 'Humidity: ' + weatherData.current.humidity + '%']
+                                    
+                                    for (var i = 0; i < weatherDetailsCurrent.length; i++) {
+                                        var currentWeatherList = $('<li></li>')
+                                            .text(weatherDetailsCurrent[i])
+                                        weatherNow.append(currentWeatherList);    
+                                    }
 
+                                    weatherNow.append(currentHeading);
+                                    currentHeading.append(iconEL);
+                                    weatherNow.append(currentWeatherList);
+                                    $('five-forecast').before(weatherNow);
+
+                                    
                                     // need to continue with this 
 
                                     
