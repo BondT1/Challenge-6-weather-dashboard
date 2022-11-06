@@ -54,7 +54,7 @@ function fetchWeather() {
 
                                     var weatherListCurrent = $('<ul></ul>');
 
-                                    var weatherDetailsCurrent = 
+                                    var weatherDetailsCurrent = ['Temp: ' + weatherData.current.temp + ' °F', 'Wind: ' + weatherData.current.wind_speed + ' MPH', 'Humidity: ' + weatherData.current.humidity + '%']
 
                                     // need to continue with this 
 
@@ -93,6 +93,14 @@ function insertLocalStorage() {
 
 // history buttons
 function history(city) {
+    var HistoryButton = $('<button></button>')
+        .addClass('btn')
+        .text(city)
+        .on('click', function () {
+            $('weather-now').remove
+
+        })
+
 
 }
 
