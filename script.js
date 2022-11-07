@@ -15,12 +15,13 @@ var coordinates = openWeatherUrl + city + '$appid' + ApiKey
 var formEL = $('#search-city');
 var currentDate = moment().format('DD/M/YYYY');
 var forecastEl = $('.forecast');
-var historyArray = loadSearchHistory();
+var historyArray = insertLocalStorage();
 var historyEl = $('#history');
 var cityEl = $('#city');
 var city = cityEl.val().trim();
 var fiveForecastEl = $('#five-forecast');
 var weatherIcon = 'http://openweathermap.org/img/wn/';
+var citySearch = [];
 
 
 // Fetch weather data from API url
@@ -153,11 +154,15 @@ function saveLocalStorage() {
 function insertLocalStorage() {
     var historyArray = JSON.parse(localStorage.getItem('history'));
 
-    // citySearch: []
-
+    if (!historyArray) {
+        historyArray = {
+            citySearch: [],
+        };
+        
+    } else {
     for (var i = 0; i < historyArray.citySearch.length; i++) {
         history(historyArray.citySearch[i]);
-    }
+    }}
 
     return historyArray;
 }
