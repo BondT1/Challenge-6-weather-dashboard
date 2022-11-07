@@ -18,6 +18,7 @@ var forecastEl = $('.forecast');
 var historyArray = loadSearchHistory();
 var historyEl = $('#history');
 var cityEl = $('#city');
+var city = cityEl.val().trim();
 var fiveForecastEl = $('#five-forecast');
 var weatherIcon = 'http://openweathermap.org/img/wn/';
 
@@ -87,7 +88,7 @@ function fetchWeather() {
                                         fiveForecastArray.push(date);
                                     }
 
-                                    // weather cards
+                                    // Weather cards
 
                                     for (var i = 0; i < fiveForecastArray.length; i++) {
                                         var weatherCard = $('<div></div>')
@@ -142,11 +143,6 @@ function fetchWeather() {
         });
 
 }
-            
-        
-    
-
-
 
 // local storage
 
@@ -166,7 +162,7 @@ function insertLocalStorage() {
     return historyArray;
 }
 
-// history buttons
+// history btns
 function history(city) {
     var historyButton = $('<button></button>')
         .addClass('btn')
@@ -182,13 +178,28 @@ function history(city) {
 
         historyEl.append(historyButton);
 
-
 }
 
+function submitSearch(event) {
+    event.displaySearch
 
+    if (city) {
+    fetchWeather(city);
+    history(city);
+    historyArray.citySearch.push(city);
+    saveLocalStorage();
+    cityEl.val('')
 
+    } else {
+        alert('City input invalid');
+    }
+}
 
-// $('#search-button').on('click', function () {
+$('#search-button').on('click', function () {
+    $('weather-now').remove;
+    $('five-forecast').empty();
+    $('five-fore-forecast-header').remove();
+})
 
-// })
+formEL.on('submit', submitSearch);
 
