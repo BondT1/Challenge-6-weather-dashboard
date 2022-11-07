@@ -31,7 +31,7 @@ function fetchWeather(city) {
                 coordinateResult.json().then(function (data) {
                     var lon = data.coord.lon;
                     var lat = data.coord.lat;
-                    var apiFetch = forecastUrl + lat + '&lon=' + lon + '&appid=' + ApiKey;
+                    var apiFetch = forecastUrl + lat + '&lon=' + lon + '&appid=' + ApiKey + '&units=metric';
 
                     fetch(apiFetch)
                         .then(function (weatherResult) {
@@ -43,10 +43,10 @@ function fetchWeather(city) {
                                     var weatherNow = $('<div></div>')
                                     .attr({ id: 'weather-now'})
                                     console.log(weatherInfo);
-                                    var current = weatherInfo.list[0].weather[0];
-                                    var icon = current.icon;
+                                    var current = weatherInfo.list[0];
+                                    var icon = current.weather[0].icon;
                                     var cityIcon = weatherIcon + icon + '.png';
-                                    var iconEL = $('<img><img>')
+                                    var iconEL = $('<img>')
                                         .attr({ id: 'weather-current-icon',
                                                 src: cityIcon,
                                                 alt: 'Icon for weather'});
@@ -56,18 +56,18 @@ function fetchWeather(city) {
 
                                     var weatherListCurrent = $('<ul></ul>');
 
-                                    var weatherDetailsCurrent = ['Temp: ' + current.temp + ' °F', 'Wind: ' + current.wind_speed + ' MPH', 'Humidity: ' + current.humidity + '%']
+                                    var weatherDetailsCurrent = ['Temp: ' + current.main.temp + ' °C', 'Wind: ' + current.wind.speed + ' MPH', 'Humidity: ' + current.main.humidity + '%']
                                     
                                     for (var i = 0; i < weatherDetailsCurrent.length; i++) {
                                         var currentWeatherItem = $('<li></li>')
                                             .text(weatherDetailsCurrent[i])
-                                        weatherNow.append(currentWeatherItem);    
+                                        weatherListCurrent.append(currentWeatherItem);    
                                     }
 
                                     weatherNow.append(currentHeading);
                                     currentHeading.append(iconEL);
                                     weatherNow.append(weatherListCurrent);
-                                    $('five-forecast').before(weatherNow);
+                                    $('#five-forecast').before(weatherNow);
 
                                     
 
@@ -83,7 +83,7 @@ function fetchWeather(city) {
                                     var fiveForecastArray = [];
 
                                     for (var i = 0; i < 5; i++) {
-                                        let date = moment().add(i + 1, 'days').format('DD,M,YYYY');
+                                        let date = moment().add(i + 1, 'days').format('DD/M/YYYY');
 
                                         fiveForecastArray.push(date);
                                     }
@@ -109,9 +109,8 @@ function fetchWeather(city) {
                                                 alt: 'Forecast Icon'
                                             });
                                         
-                                        var weatherDetailsCurrent = ['Temp: ' + current.temp + ' °F', 'Wind: ' + current.wind_speed + ' MPH', 'Humidity: ' + current.humidity + '%']
                                         var tempInfo = $('<p></p>')
-                                            .text('Temp: ' + weatherInfo.list[i].main.temp_max);
+                                            .text('Temp: ' + weatherInfo.list[i].main.temp_max  + "\u2103");
                                         
                                         var windInfo = $('<p></p>')
                                             .text('Wind: ' + weatherInfo.list[i].wind.speed + 'MPH');
@@ -146,8 +145,6 @@ function fetchWeather(city) {
 
 // local storage
 
-
-
 function insertLocalStorage() {
     var historyArray = JSON.parse(localStorage.getItem('history'));
 
@@ -174,9 +171,9 @@ function history(city) {
         .addClass('btn')
         .text(city)
         .on('click', function () {
-            $('weather-now').remove;
-            $('five-forecast').empty();
-            $('five-fore-forecast-header').remove();
+            $('#weather-now').remove();
+            $('#five-forecast').empty();
+            $('#five-forecast-header').remove();
             fetchWeather(city);
         })
         .attr({ type: 'button'
@@ -203,9 +200,9 @@ function submitSearch(event) {
 }
 
 $('#search-button').on('click', function () {
-    $('weather-now').remove;
-    $('five-forecast').empty();
-    $('five-fore-forecast-header').remove();
+    $('#weather-now').remove();
+    $('#five-forecast').empty();
+    $('#five-forecast-header').remove();
 })
 
 formEL.on('submit', submitSearch);
