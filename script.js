@@ -25,7 +25,7 @@ var weatherIcon = 'http://openweathermap.org/img/wn/';
 // Fetch weather data from API url
 
 function fetchWeather() {
-    fetch (coordinates) {
+    fetch (coordinates) 
         then (function (coordinateResult) {
             if (coordinateResult.ok) {
                 coordinateResult.json().then(function (data) {
@@ -39,6 +39,7 @@ function fetchWeather() {
                                 weatherResult.json().then(function (weatherInfo) {
 
                                     // current day
+                                    // Jquery for this container 
                                     var weatherNow = $('<div></div>')
                                     .attr({ id: weather-now})
 
@@ -74,7 +75,7 @@ function fetchWeather() {
 
                                     var fiveForecastHeader = $('<h2></h2>')
                                         .text("5-Day-Forecast:")
-                                        .attr({id = 'five-forecast-header'})
+                                        .attr({id: 'five-forecast-header'})
 
                                     $('#weather-now').after(fiveForecastHeader)
 
@@ -124,23 +125,28 @@ function fetchWeather() {
                                         weatherCardMain.append(tempInfo);
                                         weatherCardMain.append(windInfo);
                                         weatherCardMain.append(humidityInfo);
-                                    }
-                                    // need to continue with this 
-
-                                    
-
-
-
+                                    }                         
 
                                 })
                             }
                         })
-                }
+                   });
+                
+            } else {
+                alert('Open Weather Server could not find city')           
             }
-        }
-    }
+        })
+        
+        .catch(function (err) {
+            alert('Unable to connect');
+        });
 
 }
+            
+        
+    
+
+
 
 // local storage
 
@@ -162,13 +168,19 @@ function insertLocalStorage() {
 
 // history buttons
 function history(city) {
-    var HistoryButton = $('<button></button>')
+    var historyButton = $('<button></button>')
         .addClass('btn')
         .text(city)
         .on('click', function () {
-            $('weather-now').remove
-
+            $('weather-now').remove;
+            $('five-forecast').empty();
+            $('five-fore-forecast-header').remove();
+            fetchWeather(city);
         })
+        .attr({ type: 'button'
+        });
+
+        historyEl.append(historyButton);
 
 
 }
@@ -179,5 +191,4 @@ function history(city) {
 // $('#search-button').on('click', function () {
 
 // })
-
 
