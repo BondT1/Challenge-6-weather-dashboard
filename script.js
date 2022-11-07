@@ -10,15 +10,12 @@
 
 var ApiKey = 'f4ec5dcff4823d5712d2cbe8b9348d8c';
 var openWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
-var oneCallUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat='
-var coordinates = openWeatherUrl + city + '$appid' + ApiKey
+var forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=';
 var formEL = $('#search-city');
 var currentDate = moment().format('DD/M/YYYY');
 var forecastEl = $('.forecast');
-var historyArray = insertLocalStorage();
 var historyEl = $('#history');
 var cityEl = $('#city');
-var city = cityEl.val().trim();
 var fiveForecastEl = $('#five-forecast');
 var weatherIcon = 'http://openweathermap.org/img/wn/';
 var citySearch = [];
@@ -26,14 +23,15 @@ var citySearch = [];
 
 // Fetch weather data from API url
 
-function fetchWeather() {
+function fetchWeather(city) {
+    var coordinates = `${openWeatherUrl}${city}&appid=${ApiKey}`
     fetch (coordinates) 
-        then (function (coordinateResult) {
+        .then (function (coordinateResult) {
             if (coordinateResult.ok) {
                 coordinateResult.json().then(function (data) {
                     var lon = data.coord.lon;
-                    var lat = data.coord.lon;
-                    var apiFetch = oneCallUrl + lat + '&lon=' + lon + '&appid=' + ApiKey + '&units=imperial';
+                    var lat = data.coord.lat;
+                    var apiFetch = forecastUrl + lat + '&lon=' + lon + '&appid=' + ApiKey;
 
                     fetch(apiFetch)
                         .then(function (weatherResult) {
@@ -43,9 +41,10 @@ function fetchWeather() {
                                     // current day
                                     // Jquery for this container 
                                     var weatherNow = $('<div></div>')
-                                    .attr({ id: weather-now})
-
-                                    var icon = weatherResult.current.weather[0].Icon
+                                    .attr({ id: 'weather-now'})
+                                    console.log(weatherInfo);
+                                    var current = weatherInfo.list[0].weather[0];
+                                    var icon = current.icon;
                                     var cityIcon = weatherIcon + icon + '.png';
                                     var iconEL = $('<img><img>')
                                         .attr({ id: 'weather-current-icon',
@@ -57,7 +56,7 @@ function fetchWeather() {
 
                                     var weatherListCurrent = $('<ul></ul>');
 
-                                    var weatherDetailsCurrent = ['Temp: ' + weatherInfo.current.temp + ' °F', 'Wind: ' + weatherInfo.current.wind_speed + ' MPH', 'Humidity: ' + weatherInfo.current.humidity + '%']
+                                    var weatherDetailsCurrent = ['Temp: ' + current.temp + ' °F', 'Wind: ' + current.wind_speed + ' MPH', 'Humidity: ' + current.humidity + '%']
                                     
                                     for (var i = 0; i < weatherDetailsCurrent.length; i++) {
                                         var currentWeatherItem = $('<li></li>')
@@ -93,16 +92,16 @@ function fetchWeather() {
 
                                     for (var i = 0; i < fiveForecastArray.length; i++) {
                                         var weatherCard = $('<div></div>')
-                                            addClass('card');
+                                            .addClass('card');
 
                                         var weatherCardMain = $('<div></div>')
-                                            addClass('card-main');
+                                            .addClass('card-main');
 
                                         var cardH3 = $('<h3></h3>')
-                                            addClass('card-h3')
+                                            .addClass('card-h3')
                                             .text(fiveForecastArray[i]);
 
-                                        var fiveIcon = weatherInfo.daily[i].weather[0].icon;
+                                        var fiveIcon = weatherInfo.list[i].weather[0].icon;
 
                                         var fiveIconEl = $('<img></img>')
                                             .attr({
@@ -110,15 +109,15 @@ function fetchWeather() {
                                                 alt: 'Forecast Icon'
                                             });
                                         
-                                        var weatherDetailsCurrent = ['Temp: ' + weatherInfo.current.temp + ' °F', 'Wind: ' + weatherInfo.current.wind_speed + ' MPH', 'Humidity: ' + weatherInfo.current.humidity + '%']
+                                        var weatherDetailsCurrent = ['Temp: ' + current.temp + ' °F', 'Wind: ' + current.wind_speed + ' MPH', 'Humidity: ' + current.humidity + '%']
                                         var tempInfo = $('<p></p>')
-                                            .text('Temp: ' + weatherInfo.daily[i].temp.max);
+                                            .text('Temp: ' + weatherInfo.list[i].main.temp_max);
                                         
                                         var windInfo = $('<p></p>')
-                                            .text('Wind: ' + weatherInfo.daily[i].wind_speed + 'MPH');
+                                            .text('Wind: ' + weatherInfo.list[i].wind.speed + 'MPH');
                                         
                                         var humidityInfo = $('<p></p>')
-                                            .text('Humidity: ' + weatherInfo.daily[i].humidity + '%');
+                                            .text('Humidity: ' + weatherInfo.list[i].main.humidity + '%');
 
                                         fiveForecastEl.append(weatherCard);
                                         weatherCard.append(weatherCardMain);
@@ -147,9 +146,7 @@ function fetchWeather() {
 
 // local storage
 
-function saveLocalStorage() {
-    localStorage.setItem('history', JSON.stringify(HistoryArray));    
-}
+
 
 function insertLocalStorage() {
     var historyArray = JSON.parse(localStorage.getItem('history'));
@@ -158,13 +155,17 @@ function insertLocalStorage() {
         historyArray = {
             citySearch: [],
         };
-        
+
     } else {
     for (var i = 0; i < historyArray.citySearch.length; i++) {
         history(historyArray.citySearch[i]);
     }}
 
     return historyArray;
+}
+
+function saveLocalStorage() {
+    localStorage.setItem('history', JSON.stringify(insertLocalStorage()));    
 }
 
 // history btns
@@ -186,12 +187,13 @@ function history(city) {
 }
 
 function submitSearch(event) {
-    event.displaySearch
+    event.preventDefault();
+    var city = cityEl.val().trim();
 
     if (city) {
     fetchWeather(city);
     history(city);
-    historyArray.citySearch.push(city);
+    insertLocalStorage().citySearch.push(city);
     saveLocalStorage();
     cityEl.val('')
 
@@ -207,4 +209,8 @@ $('#search-button').on('click', function () {
 })
 
 formEL.on('submit', submitSearch);
+
+
+
+
 
