@@ -44,7 +44,6 @@ function fetchWeather(city) {
                                     // Jquery for this container 
                                     var weatherNow = $('<div></div>')
                                     .attr({ id: 'weather-now'})
-                                    console.log(weatherInfo);
                                     var current = weatherInfo.list[0];
                                     var icon = current.weather[0].icon;
                                     var cityIcon = weatherIcon + icon + '.png';
