@@ -8,6 +8,8 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
+// Variables used throughout code
+
 var ApiKey = 'f4ec5dcff4823d5712d2cbe8b9348d8c';
 var openWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
 var forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=';
@@ -38,7 +40,7 @@ function fetchWeather(city) {
                             if (weatherResult.ok) {
                                 weatherResult.json().then(function (weatherInfo) {
 
-                                    // current day
+                                    // current day container
                                     // Jquery for this container 
                                     var weatherNow = $('<div></div>')
                                     .attr({ id: 'weather-now'})
@@ -88,7 +90,7 @@ function fetchWeather(city) {
                                         fiveForecastArray.push(date);
                                     }
 
-                                    // Weather cards
+                                    // Weather cards for five day forecast
 
                                     for (var i = 0; i < fiveForecastArray.length; i++) {
                                         var weatherCard = $('<div></div>')
@@ -183,6 +185,7 @@ function history(city) {
 
 }
 
+// function to submit search input
 function submitSearch(event) {
     event.preventDefault();
     var city = cityEl.val().trim();
@@ -199,6 +202,7 @@ function submitSearch(event) {
     }
 }
 
+// search button click listener
 $('#search-button').on('click', function () {
     $('#weather-now').remove();
     $('#five-forecast').empty();
