@@ -125,7 +125,7 @@ function fetchWeather(city) {
                                         weatherCardMain.append(fiveIconEl);
                                         weatherCardMain.append(tempInfo);
                                         weatherCardMain.append(windInfo);
-                                        weatherCardMain.append(humidityInfo);
+                                        weatherCardMain.append(humidityInfo)
                                     }                         
 
                                 })
